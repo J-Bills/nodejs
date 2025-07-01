@@ -6,21 +6,33 @@ const person = {
   }
 };
 
-const printName = ({ name }) => {
-  console.log(name);
+// Three ways to deconstruct an object
+const printName = (pesronData) => {
+  console.log(pesronData.name);
 };
 
 printName(person);
 
-const { name, age } = person;
+const printName2 = ({ name }) => {
+  console.log(name)
+}
+printName2(person)
+
+// Deconstructing the properties from the person class and accessing them.
+const {name, age} = person;
 console.log(name, age);
 
-// const copiedPerson = { ...person };
-// console.log(copiedPerson);
 
 const hobbies = ['Sports', 'Cooking'];
 const [hobby1, hobby2] = hobbies;
+console.log(hobbies);
 console.log(hobby1, hobby2);
+// const copiedPerson = { ...person };
+// console.log(copiedPerson);
+
+// const hobbies = ['Sports', 'Cooking'];
+// const [hobby1, hobby2] = hobbies;
+// console.log(hobby1, hobby2);
 
 // // for (let hobby of hobbies) {
 // //     console.log(hobby);
