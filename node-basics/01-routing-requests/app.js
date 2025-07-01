@@ -19,9 +19,25 @@ const server = http.createServer((req, res)=>{
     return res.end();
   }
   if (url === '/message' && method === "POST"){
+    //TODO: When receiving a post message we want to receive the data in this method. So we us an event listener
+    //defining a function that is going to be used on every incoming data piece
+    // body is an array that takes the data chunks and appends them to an array as we are receiving them
+    const body = [];
+    req.on('data', (chunk) => {
+      console.log(chunk);
+      body.push(chunk);
+    });
+    // This is where we are creating the buffer
+    req.on('end', () =>{
+      const parsedBody = Buffer.concat(body).toString();
+      console.log(parsedBody);
+      const message = parsedBody.split('=')[1];
+      fs.writeFileSync('message.txt', message);
+    });
+
     //TODO: Redirect the user to '/' and create and store the message in a file
     // Using 302 response and setting location to '/' when that response code is received
-    fs.writeFileSync('message.txt', 'DUMMY');
+    // fs.writeFileSync('message.txt', 'DUMMY');
     res.writeHead(302, {
       'Location': '/'
     });
