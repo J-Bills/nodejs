@@ -22,6 +22,8 @@ const server = http.createServer((req, res) => {
     return req.on('end', () => {
       const parsedBody = Buffer.concat(body).toString();
       const message = parsedBody.split('=')[1];
+      //Using writeFileSync hear would block the code until the file operation is done
+      //We Don't want that so we use the writeFile method
       fs.writeFile('message.txt', message, err => {
         res.statusCode = 302;
         res.setHeader('Location', '/');
