@@ -8,7 +8,13 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use(adminRoutes);
-app.use(shopRoutes);
+//Adding Filtering so that express triggers routes that we specifically want
+app.use('/admin', adminRoutes);
+app.use('/shop', shopRoutes);
+
+//setting a default route that will be our 404 page
+app.use((req, res, next) =>{
+  res.status(404).send('<h1>Page not Found</h1>')
+});
 
 app.listen(3000);
