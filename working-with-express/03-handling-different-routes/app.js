@@ -1,19 +1,23 @@
 const express = require('express');
+const bodyParser = require('body-parser')
 
 const app = express();
 
-app.use('/', (req, res, next) => {
-    console.log('This always runs!');
-    next();
+// Setting up body-parser to parse the data that we get from the user
+app.use(bodyParser.urlencoded());
+
+// Have to order in this way so that add-product actually gets rendered
+app.use('/add-product',(req, res, next) => {
+  // console.log('In another middleware!');
+  res.send('<form action ="/product" method="POST"><input type ="text" name="title"><button type="submit">Add Product</form>');
 });
 
-app.use('/add-product', (req, res, next) => {
-  console.log('In another middleware!');
-  res.send('<h1>The "Add Product" Page</h1>');
+app.use('/product', (req, res, next) =>{
+  console.log(req.body);
 });
 
-app.use('/', (req, res, next) => {
-  console.log('In another middleware!');
+app.use('/',(req, res, next) => {
+  // console.log('In another middleware!');
   res.send('<h1>Hello from Express!</h1>');
 });
 
