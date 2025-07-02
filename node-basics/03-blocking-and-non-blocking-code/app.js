@@ -1,42 +1,61 @@
 const http = require('http');
-const fs = require('fs');
+// importing the module needed to work with the file system
+const fs  = require('fs');
 
-const server = http.createServer((req, res) => {
+// A way to create a listener but we can also use an arrow function
+// function rqListener(req, res){
+
+// };
+const server = http.createServer((req, res)=>{
+  //Parsing the url to start handling routes
   const url = req.url;
   const method = req.method;
-  if (url === '/') {
+  if(url === '/'){
     res.write('<html>');
     res.write('<head><title>Enter Message</title><head>');
-    res.write(
-      '<body><form action="/message" method="POST"><input type="text" name="message"><button type="submit">Send</button></form></body>'
-    );
+    res.write('<body><form action="/message" method="POST"><input type="text" name="form-message"><button type="submit">Send</button></form></body>');
     res.write('</html>');
+    // return so that we can exit out of the function
     return res.end();
   }
-  if (url === '/message' && method === 'POST') {
+  if (url === '/message' && method === "POST"){
+    //TODO: When receiving a post message we want to receive the data in this method and write it to a file. Tp do this we use an event listener
+    //defining a function that is going to be used on every incoming data piece
+    // body is an array that takes the data chunks and appends them to an array as we are receiving them
     const body = [];
-    req.on('data', chunk => {
+    req.on('data', (chunk) => {
       console.log(chunk);
       body.push(chunk);
     });
-    return req.on('end', () => {
+    // This is where we are creating the buffer
+    //Added a return to the event listener so that the code in this block gets returned and the setHeaders below don't.
+    //We do this because a callback function won't stop our code from continuing to run unless specified and that can cause errors
+      return req.on('end', () => {
       const parsedBody = Buffer.concat(body).toString();
       const message = parsedBody.split('=')[1];
-      //Using writeFileSync hear would block the code until the file operation is done
-      //We Don't want that so we use the writeFile method
       fs.writeFile('message.txt', message, err => {
         res.statusCode = 302;
         res.setHeader('Location', '/');
         return res.end();
       });
     });
+      //TODO: Redirect the user to '/' and create and store the message in a file
+    // Using 302 response and setting location to '/' when that response code is received
+    // fs.writeFileSync('message.txt', 'DUMMY');
+    
+
+    
+
   }
   res.setHeader('Content-Type', 'text/html');
+  //sending html code to the response
   res.write('<html>');
   res.write('<head><title>My First Page</title><head>');
-  res.write('<body><h1>Hello from my Node.js Server!</h1></body>');
+  res.write('<body?><h1> Hello from my Node.js Server!</h1></body>');
   res.write('</html>');
   res.end();
 });
 
 server.listen(3000);
+
+
