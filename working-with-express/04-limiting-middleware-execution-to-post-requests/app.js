@@ -11,6 +11,9 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
 
+//Have to setup new middleware inorder to be able to link stylesheet to our code which is a static file
+app.use(express.static(path.join(rootDir, 'public')));
+
 //Adding Filtering so that express triggers routes that we specifically want
 app.use('/admin', adminRoutes);
 app.use('/shop', shopRoutes);
