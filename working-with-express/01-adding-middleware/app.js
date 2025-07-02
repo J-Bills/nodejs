@@ -11,9 +11,10 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
     console.log('In another middleware!');
-    res.send('<h1>Hello from Express!</h1>');
+    res.send('<h1>Hello from Express!</h1>'); // Sends a response to not do anything else
 });
 
 const server = http.createServer(app);
 
 server.listen(3000);
+console.log('Server Running...')
