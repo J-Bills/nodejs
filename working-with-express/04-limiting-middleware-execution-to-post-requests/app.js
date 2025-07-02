@@ -9,7 +9,7 @@ app.use('/add-product', (req, res, next) => {
   res.send('<form action="/product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>');
 });
 
-app.post('/product', (req, res, next) => {
+app.post('/product', (req, res, next) => { // Only triggers for post request
     console.log(req.body);
     res.redirect('/');
 });
