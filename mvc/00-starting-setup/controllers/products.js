@@ -22,13 +22,16 @@ exports.postAddProduct = (req, res, next) => {
 exports.getProducts = (req, res, next) => {
     //removing products because we have access to it in this controller file
     // const products = adminData.products;
-    const products = Product.fetchAll();
-    res.render('shop', {
+    // using call back function to populate our products because fetchAll is asynchronous and doesn't return anything
+    Product.fetchAll(products =>{
+        res.render('shop', {
         prods: products,
         pageTitle: 'Shop',
         path: '/',
         hasProducts: products.length > 0,
         activeShop: true,
         productCSS: true
+        });
     });
+    
 };
