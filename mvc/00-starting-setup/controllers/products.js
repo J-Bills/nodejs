@@ -26,4 +26,4 @@ exports.getProducts = (req, res, next) => {
         activeShop: true,
         productCSS: true
     });
-}
+};
