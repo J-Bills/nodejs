@@ -10,9 +10,12 @@ exports.getProducts = (req, res, next) => {
   });
 };
 
+// Used params to get the id and used the Product method to find the matching id
 exports.getProduct = (req, res, next) => {
   const prodID = req.params.productID;
-  console.log(prodID);
+  Product.findByID(prodID, product =>{
+    console.log(product);
+  });
 };
 
 
