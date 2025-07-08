@@ -34,6 +34,13 @@ exports.getCheckout = (req, res, next) => {
   })
 };
 
+exports.getOrders = (req, res, next) => {
+  res.render('shop/orders', {
+    pageTitle: 'Orders',
+    path: '/orders'
+  })
+};
+
 
 exports.postProduct = (req, res, next) =>{
   const product = new Product(req.body.title);
