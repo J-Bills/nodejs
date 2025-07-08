@@ -1,5 +1,5 @@
 const products = [];
-
+// Creating a product model to use with the controllers
 module.exports = class Product {
     constructor(title){
         this.title = title;
