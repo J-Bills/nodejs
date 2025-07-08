@@ -10,6 +10,9 @@ router.get('/', shopController.getIndex);
 
 router.get('/products', shopController.getProducts);
 
+// Signals to express that it will handle anything after for an id
+router.get('/products/:productID', shopController.getProduct);
+
 router.get('/cart', shopController.getCart);
 
 router.get('/orders', shopController.getOrders);
