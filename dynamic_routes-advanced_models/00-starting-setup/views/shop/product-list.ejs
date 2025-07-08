@@ -25,6 +25,8 @@
                                     </p>
                                 </div>
                                 <div class="card__actions">
+                                    <!-- adding product id from our product model to load a specific product-->
+                                    <a href="/products/<%= product.id %>" class="btn">Details</a>
                                     <form action="/add-to-cart" method="POST">
                                         <button class="btn">Add to Cart</button>
                                     </form>
